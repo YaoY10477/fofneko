@@ -1,0 +1,67 @@
+var colors = [{
+  bg: ["#9B0c0e", "#C62A2D"],
+  bt: ["#B12E30", "#C73C3F"]
+}, {
+  bg: ["#CA300c", "#AC451A"],
+  bt: ["#CE4C2A", "#B95630"]
+}, {
+  bg: ["#76A427", "#709820"],
+  bt: ["#83AA3F", "#80A73C"]
+}, {
+  bg: ["#189F74", "#177D4E"],
+  bt: ["#2FA176", "#328F68"]
+}];
+var filter = {
+
+  fmtFixed: function (val, index){
+    if (val == null || isNaN(val) || typeof (val) == "string" && val == '')
+      return "--";
+    return Number((val * 1).toFixed(index));
+  },
+
+  fmtRatio: function (val,index){
+    var index = arguments[1] ? arguments[1] : 2;
+    if (val == null || isNaN(val) || typeof (val) == "string" && val == '') {
+      return '--';
+    }
+    var ratio = (val * 100).toFixed(index);
+    return ratio + '%';
+  },
+
+  inArray : function(val,arr,resp1,resp2){
+    for(var i = 0;i<arr.length;i++){
+      if (arr[i] == val){
+        return resp1 == null ? true : resp1
+      }
+    }
+    return resp2 == null ? false : resp2
+  },
+
+  getMinByArr : function(arr){
+    return Math.min.apply(Math,arr)
+  },
+
+  getMaxByArr: function (arr) {
+    return Math.max.apply(Math, arr)
+  },
+
+  splitArr : function(arr,st,ed){
+    return arr.slice(st,ed)
+  },
+
+  matrixColor : function(val){
+    val = Math.floor(Math.random()*4);
+    return colors[val]['bg'].join(",")
+  },
+
+  matrixBtnColor: function (val) {
+    val = Math.floor(Math.random() * 4);
+    return colors[val]['bt'].join(",")
+  },
+
+  subStrByLen : function(str,num){
+    return str ? str.split("").length > num ? str.split("").splice(0,num).join("") + ".." : str : "--"
+  }
+}
+
+module.exports = filter;

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "资产猫",
+  "backgroundColor": "#F7F8FA",
+  "usingComponents": {
+    "ec-canvas": "../../../ec-canvas/ec-canvas"
+  }
+}

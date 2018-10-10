@@ -1,0 +1,96 @@
+<wxs module="util" src="../../../utils/extend.wxs"></wxs>
+<view class="container">
+  <view class="bothSides flex-flow-row justifyBetween fixedBlock">
+    <view>已选{{ operFlg ? removeRow.length : selected.length}}个资产</view>
+    <view bindtap='operation'>
+      {{ operFlg ? "完成" : "编辑" }}
+      <!-- <block>
+        <icon type="success" size="20"/>
+      </block> -->
+    </view>
+  </view>
+  <!-- 自选列表 -->
+  <view class="listHead fixedBlock" style="margin-top:76rpx;">
+      <view style="width:20%">
+        <view>
+          <view>{{ !operFlg ? '加入' : '删除'}}</view>
+          <view>{{ !operFlg ? '对比' : '自选'}}</view>
+        </view>
+      </view>
+      <view style="width:25%">资产</view>
+      <view style="width:15%">主题</view>
+      <view style="width:20%" class="flex-row centerText">
+          <view class="flex-column rightText">
+            <view class="width100 rightText">最新</view>
+            <view class="width100">价格</view>
+          </view>
+          <view class="flex-column" style="padding:0 0 0 8rpx">
+            <view class="width100 leftText {{ orderAsc.price === true ? 'pale' : 'white' }}" style="margin-bottom:-8rpx" bindtap='orderByList' data-field="price">▲</view>
+            <view class="width100 rotate180 {{ orderAsc.price === false ? 'pale' : 'white' }}" bindtap='orderByList' data-field="price">▲</view>
+          </view>
+      </view>
+      <view style="width:20%" class="flex-row centerText">
+          <view class="flex-column rightText">
+            <view class="width100 rightText">收益率</view>
+            <view class="width100">近一年</view>
+          </view>
+          <view class="flex-column" style="padding:0 0 0 8rpx">
+            <view class="width100 leftText {{ orderAsc.return === true ? 'pale' : 'white' }}" style="margin-bottom:-8rpx" bindtap='orderByList' data-field="return">▲</view>
+            <view class="width100 rotate180 {{ orderAsc.return === false ? 'pale' : 'white' }}" bindtap='orderByList' data-field="return">▲</view>
+          </view>
+      </view>
+  </view>
+  <!-- 表格本体 -->
+  <view class="width100" style="margin-top:180rpx">
+      <!-- 列表无数据时展示 -->
+      <view class="flex-row width100 centerText pale" style="margin-top:200rpx;font-size:28rpx" wx:if="{{ !listData.length }}">
+        还没有自选基金,快去看看吧~
+      </view>
+
+      <!-- 自选列表 -->
+      <view class="rows" wx:for="{{listData}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}" data-id="{{item.id}}" bindtap='addSelected'>
+        <view class="flex center" style="width:20%;">
+          <view class="imgGroup" wx:if="{{!operFlg}}">
+            <image src="{{ util.inArray(item.id,selected) ? '../../../image/vsIcon-bg.png' : '../../../image/vsIcon-active-bg.png'}}"></image>
+            <!-- <icon type="success" size="24" data-index="item.id" color="{{util.inArray(item.id,selected)}}"/> -->
+          </view>
+          <radio data-index="{{item.id}}" checked="{{util.inArray(item.id,removeRow)}}" wx:else data-ctx="{{removeRow}}" />
+        </view>
+        <view catchtap="void(0)" style="width:25%">
+          <navigator url="../detail/detail?fundId={{'000001'}}"  class="rows">
+            <view style="width:100%">{{item.name}}</view>
+          </navigator>
+        </view>
+        <view style="width:15%">{{item.theme}}</view>
+        <view style="width:20%">{{"2788.84"}}</view>
+        <view style="width:20%" class="{{ item.flg == '+' ? 'red' : 'green'}}">
+          {{item.flg}}{{util.fmtRatio(item.return_y1,2)}}
+        </view>
+      </view>
+
+      <!-- 当用户呼出批量操作行时会遮盖住列表的最后一条数据，这种情况下在列表最后加一行空行来解决该问题 -->
+      <view class="rows" wx:if="{{operFlg}}"></view>
+  </view>
+  
+  
+  <!-- 批量操作 -->
+  <view class="rows pearBlock flex-row justifyBetween fixedBlock" wx:if="{{operFlg}}">
+    <view style="width:27%">
+      <label>
+        <radio checked='{{selectAllFlg && removeRow.length}}' bindtap='selectAll' />全选
+      </label>
+    </view>
+    <view style="width:35%"></view>
+    <view style="width:25%">
+      <button size="mini" type="warn" style="font-size:26rpx" bindtap='removeSelecteds'>移除自选</button>
+    </view>
+  </view>
+
+  <!-- VS图标 -->
+  <!-- <view class="fixedIconGroup flex-row justifyEnd fixedBlock" style="padding-right:100rpx"> -->
+      <view class="flex-row violet centerText justifyEnd fiexdIcon fixedBlock" style="bottom:60rpx;right:60rpx" wx:else>VS</view>
+      <view class="fixedBlock" style="bottom:130rpx;right:50rpx;z-index:999" wx:if="{{!operFlg}}">
+        <view class="white flex-row centerText iconSup" wx:if="{{!!selected.length}}">{{selected.length}}</view>
+      </view>
+  <!-- </view> -->
+</view>

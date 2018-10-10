@@ -1,0 +1,65 @@
+/* pages/main/detail/detail.wxss */
+.static{
+  width:100%;
+}
+
+.infoGroup{
+  margin:0 40rpx 0 40rpx;
+}
+
+.title{
+  font-size:50rpx
+}
+
+.subTitle{
+  font-size:36rpx
+}
+
+.optionGroup{
+  /* margin:0 25rpx 0 25rpx; */
+  border-bottom:1px solid #3D3F4C;
+}
+
+.optionGroup>view{
+  padding:0 0 15rpx 0;
+  font-size:32rpx;
+  /* color:#6E6D79; */
+}
+
+.activeOp{
+  color:#D9DADE;
+  border-bottom:3px solid #D9DADE;
+}
+
+.classText{
+  padding:8rpx 13rpx 8rpx 13rpx;
+  font-size:26rpx
+}
+
+.tabBtn{
+  color : #D9DADE;
+  min-width:70rpx;
+  padding:12rpx 30rpx 12rpx 30rpx 
+}
+
+.activeBtn{
+  background-color:#565662;
+  color:#fff;border-radius: 28rpx;
+}
+
+.padding30{
+  padding:30rpx
+}
+
+.addSelBtn{
+  font-size:24rpx;color:#fff;
+  background-color:#303451;
+}
+.addSelBtn-active{
+  background-color:coral
+}
+
+.downIconGroup{
+  width:50rpx;height:50rpx;font-size:26rpx;
+  margin-top:40rpx;margin-right:50rpx
+}

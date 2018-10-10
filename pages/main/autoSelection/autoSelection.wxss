@@ -1,0 +1,28 @@
+.bothSides{
+  display:flex;font-size:30rpx;
+  width :100%;color:#656871;
+  background-color:#252429;
+}
+
+.bothSides>view{
+  margin:20rpx
+}
+
+.listHeader{
+  margin-top:70rpx;
+}
+
+.pearBlock{
+  background-color:#252429;
+  border:1px solid #3D3F4C;
+  align-items:center;
+  width:100%;bottom:0
+}
+
+.imgGroup{
+  width : 80rpx;height:80rpx  
+}
+
+.imgGroup>image{
+  width:100%;height:100%
+}

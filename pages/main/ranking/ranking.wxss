@@ -1,0 +1,66 @@
+.addGroup{
+  width:100%;padding:30rpx 10rpx 10rpx 10rpx;
+  border-top:1px solid #3D3F4C;background-color:#252429
+}
+
+.addressTabs{
+  display:flex;
+  justify-content: space-between;
+  margin:0 25rpx 0 25rpx;
+  border-bottom:1px solid #3D3F4C;
+}
+
+.addTitle{
+  color : #6E6D79;
+  padding:0 0 15rpx 0;
+  font-size:32rpx;
+}
+
+.activeTab{
+  color : #D9DADE;
+  border-bottom:3px solid #D9DADE
+}
+
+.classGroup{
+  width:100%;justify-content:flex-start;
+  margin-top:95rpx;background-color:#252429
+}
+
+.classTabs{
+  display:flex;font-size:30rpx;
+  justify-content: flex-start;
+  margin:0 25rpx 0 25rpx;
+  padding:15rpx
+}
+
+.classText{
+  padding:8rpx 13rpx 8rpx 13rpx;
+  font-size:26rpx
+}
+
+.tabBtn{
+  color : #D9DADE;
+  margin:0 50rpx 0 0;min-width:80rpx;
+  padding:10rpx 30rpx 10rpx 30rpx 
+}
+
+.activeClasser{
+  background-color:#565662;
+  color:#fff;border-radius: 28rpx;
+}
+
+.ranking-table{
+  width:100%;
+  justify-content: flex-start
+}
+
+.table-header{
+  background-color:#2F2F3B;
+  color:#D9DADE;font-size:32rpx;
+  padding:15rpx 20rpx 15rpx 40rpx;
+}
+
+.iconColumns{
+  display:flex;
+  justify-content:flex-end;
+}

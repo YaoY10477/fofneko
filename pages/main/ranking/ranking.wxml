@@ -1,0 +1,39 @@
+<wxs module="util" src="../../../utils/extend.wxs"></wxs>
+<view class="container">
+    <!-- 选择地区 -->
+    <scroll-view class="fixedBlock addGroup" scroll-x>
+      <view class="addressTabs">
+          <label wx:for="{{address}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}" data-index="{{index}}" class="addTitle {{ addIndex == index ? 'activeTab' : '' }}" bindtap='changeAddIndex' id="{{item.value}}">{{item.text}}</label>
+      </view>
+    </scroll-view>
+    <!-- 选择类型 -->
+    <scroll-view class="fixedBlock classGroup" scroll-x>
+      <view class="classTabs">
+          <label wx:for="{{classer}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}" data-index="{{index}}" data-index="{{index}}" class="classText tabBtn {{ classIndex == index ? 'activeClasser' : '' }}" bindtap='changeClassIndex' id="{{item.value}}">{{item.text}}</label>
+      </view>
+    </scroll-view>
+    <view style="margin-top:180rpx;width:100%">
+      <view class="ranking-table" wx:for="{{tableDatas}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}">
+        <view class="table-header">
+          <!-- 本周涨幅榜 -->
+          {{ item.tabTitle }}
+        </view>
+        <view class="table-content" style="min-height:100rpx">
+          <!-- 列表无数据时展示 -->
+          <view class="flex-row width100 centerText pale" style="margin-top:50rpx;font-size:28rpx" wx:if="{{ !item.listDatas.length }}">
+            没有查询到相关数据
+          </view>
+
+          <!-- 列表 -->
+          <view class="rows" wx:for="{{item.listDatas}}" wx:for-index="listIndex" wx:for-item="option" wx:key="{{listIndex}}">
+            <view style="font-weight:800;width:15%;height:100%;background:url({{listIndex < 3 ? '../../../image/ranking-first-bg.png' : '../../../image/ranking-bg2.png'}}) 65% 0 no-repeat;background-size:contain" class="center iconColumns {{ listIndex < 3 ? 'brown' : 'white'}}" >
+            {{listIndex + 1}}
+            </view>
+            <view style="width:30%">{{ option.name }}</view>
+            <view style="width:30%">{{ option.return_y1 }}</view>
+            <view style="width:30%">{{"+0.31%"}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+</view>

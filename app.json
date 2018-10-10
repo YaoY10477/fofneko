@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/main/detail/detail",
+    "pages/main/autoSelection/autoSelection",
+    "pages/main/contrast/contrast",
+    "pages/main/ranking/ranking"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "backgroundColor" : "#252429",
+    "backgroundColorTop" : "#252429",
+    "backgroundColorBottom" : "#252429",
+    "navigationBarBackgroundColor": "#252429",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#6C6C78",
+    "selectedColor": "#fff",
+    "backgroundColor":"#1D1F2E",
+    "list": [
+      {
+        "selectedIconPath": "image/home-active.png",
+        "iconPath": "image/home.png",
+        "pagePath": "pages/index/index",
+        "text": "行情"  
+      },
+      {
+        "selectedIconPath": "image/auto-active.png",
+        "iconPath": "image/auto.png",
+        "pagePath": "pages/main/autoSelection/autoSelection",
+        "text": "自选" 
+      },
+      {
+        "selectedIconPath": "image/collection-active.png",
+        "iconPath": "image/collection.png",
+        "pagePath": "pages/main/ranking/ranking",
+        "text": "榜单"  
+      }
+    ]  
+  }
+}

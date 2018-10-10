@@ -1,0 +1,165 @@
+<!--pages/main/detail/detail.wxml-->
+<wxs module="util" src="../../../utils/extend.wxs"></wxs>
+<!-- <view style="width:415px;height:450px">
+    <ec-canvas canvas-id="PriceTrend" ec="{{ ec }}"></ec-canvas>
+</view> -->
+<view class="container">
+  <!-- 头部信息 -->
+  <view class="static">
+    <view class="infoGroup">
+      <view class="flex-row justifyBetween">
+        <view class="green2">
+          <label class="title">2715.40</label>
+          <label class="subTitle">
+            -1.5%
+            <label class="weight800">↓</label>
+          </label>
+        </view>
+        <view style="height:100%;padding:15rpx 0 0 0">
+          <button class="addSelBtn {{1 == 2 ? 'addSelBtn-active' : ''}}" size="mini" bindtap='addSelected'>加入自选</button>
+        </view>
+      </view>
+      <view class="flex-row justifyBetween bottomBorder" style="padding-bottom:25rpx;">
+        <view class="flex-column font32">
+          <view class="flex-row" style="color:#DBDADE;padding:0 0 10rpx 0;">
+            <view class="font36">{{util.subStrByLen(mainInfo.name,6) || "正在加载中"}}</view>
+            <view class="font32 rightText flex" style="min-width:150rpx;margin-left:30rpx">{{mainInfo.asset_id}}</view>
+          </view>
+          <view style="color:#CCCBD1">大类:{{"权益" || "--"}} | 主题:{{mainInfo.composite || "--"}} | 地区:{{util.subStrByLen(mainInfo.district_sname,5) || "--"}}</view>
+        </view>
+        <view class="downIconGroup">
+          <image src="../../../image/download.png" style="width:100%;height:100%"></image>
+        </view>
+      </view>
+      <view class="flex-row justifyBetween pale font32" style="padding:20rpx 0 5rpx 0;">
+        <view>开盘价</view>
+        <view>收盘价</view>
+        <view>最高价</view>
+        <view>最低价</view>
+      </view>
+      <view class="flex-row justifyBetween white font30" style="padding:5rpx 0 20rpx 0;">
+        <view>32.84</view>
+        <view>33.84</view>
+        <view>38.12</view>
+        <view>32.12</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="cardGroup">
+    <!-- 时间区间 -->
+    <view style="margin:35rpx 40rpx 0 40rpx;">
+      <view class="flex-row justifyBetween pale optionGroup">
+        <view class="{{item.value == range ? 'activeOp' : ''}}" wx:for="{{IntervalOp}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}" data-val="{{item.value}}" bindtap="changeInterval">{{item.text}}</view>
+      </view>
+    </view>
+
+    <!-- 价格走势 -->
+    <view class="flex-column card" style="">
+      <view class="cardTitle bottomBorder">
+        价格走势
+      </view>
+      <view class="flex-row justifyBetween bottomBorder font30">
+        <view>
+          <view class="pale">累计收益率</view>
+          <view class="marginTop10">12.88%</view>
+        </view>
+        <view>
+          <view class="pale">年化收益</view>
+          <view class="marginTop10">6.44%</view>
+        </view>
+        <view>
+          <view class="pale">最大回撤</view>
+          <view class="marginTop10">-6.07%</view>
+        </view>
+      </view>
+      <view class="chartGroup" style='padding:5rpx'>
+        <!-- 价格走势图 -->
+        <view style="height:100%;height:100%;" id="PriceTrend" >
+          <!-- <canvas canvas-id="PriceTrend" style="width:{{groups.PriceTrend.width}}px;height:{{groups.PriceTrend.height}}px;" bindlongtap="interactive"></canvas> -->
+        <ec-canvas id="mychart-dom-pie" class="mychart-pie" canvas-id="mychart-pie" ec="{{ priceTrend }}" style="width:{{groups.PriceTrend.width}}px;height:{{groups.PriceTrend.height}}px"></ec-canvas>
+        </view>
+        <!-- <ec-canvas canvas-id="PriceTrend" ec="{{ ec }}"></ec-canvas> -->
+      </view>
+    </view>
+
+    <!-- 相关资产 -->
+    <view class="flex-column card">
+      <view class="cardTitle bottomBorder">
+        相关资产
+      </view>
+      <view class="flex-row justifyBetween bottomBorder font30">
+        <view class="width50">
+            <label class="classText tabBtn {{ correlation == 'high' ? 'activeBtn' : ''}}" data-val="high" bindtap='changeCorrelation'>相关度高</label>
+            <label class="classText tabBtn {{ correlation == 'low' ? 'activeBtn' : ''}}" data-val="low" bindtap='changeCorrelation'>相关度低</label>
+        </view>
+        <view class="width50 justifyEnd">
+          中国
+          <switch bindchange="regionChange" checked="{{!inChina}}" style="margin:-5rpx 10rpx 0 10rpx;"/>
+          海外
+        </view>
+      </view>
+      <view class="chartGroup">
+        <!-- 价格走势图形容器 -->
+      </view>
+      <view style="padding:20rpx">
+        <view class="font24;padding30" style="background-color:#393943">
+          <view></view>
+          <view>
+            该图显示累计收益率。上证综指、沪深300、上证50指数收益相关性较低（近三年）。
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 相关基金 -->
+    <view class="flex-column card" style="margin-bottom:100rpx">
+      <view class="cardTitle bottomBorder">
+        相关基金
+      </view>
+      <!-- 表头 -->
+      <view class="listHead" style="width:auto;margin-top:20rpx;padding:20rpx">
+          <view style="width:50%" class="flex-column">
+              <view class="flex width100 leftText">基金名称</view>
+              <view class="flex width100 leftText">基金代码</view>
+          </view>
+          <view style="width:25%" class="flex-row leftText">
+            <view class="flex-column leftText">
+              <view class="flex width100 leftText">净值</view>
+              <view class="flex width100">日期</view>
+            </view>
+          </view>
+          <view style="width:25%" class="flex-row rightText">
+            <view class="flex-column rightText">
+              <view class="flex width100 rightText">收益率</view>
+              <view class="flex width100">近一年</view>
+            </view>
+          </view>
+      </view>
+      <!-- 列表无数据时展示 -->
+      <view class="flex-row centerText pale font24" style="min-height:200rpx;background-color:#2C2E3B;" wx:if="{{ !fundListData.length }}">
+        没有查询到数据
+      </view>
+      <!-- 表格本体 -->
+      <view wx:for="{{util.splitArr(fundListData,0,page * 5)}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}" style="padding:0">
+        <navigator url="../main/detail/detail?id={{000001}}"  class="rows" style="height:110rpx;background-color:#2C2E3B">
+          <view style="width:50%;margin-left:20rpx" class="flex-column leftText">
+            <view class="flex width100 leftText font28 white">{{'汇添富消费行业'}}</view>
+            <view class="flex width100 font26">{{'000083'}}</view>
+          </view>
+          <view style="width:25%" class="flex-column leftText">
+            <view class="flex width100 leftText font28 white">{{'1.2300'}}</view>
+            <view class="flex width100 font26">({{'06-12'}})</view>
+          </view>
+          <view style="width:25%;margin-right:20rpx;" class="flex-row rightText font30">
+            {{'-3.02%'}}
+          </view>
+        </navigator>
+      </view>
+      <!-- 查看更多 -->
+      <view class="justifyCenter font30" style="background-color:#2C2E3B;border-radius:0 0 15rpx 15rpx" wx:if="{{ fundListData.length }}" bindtap='selectMore'>
+        <label>{{ page < maxPage ? '查看更多' : '已加载全部，收起全部' }}</label>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,122 @@
+<!--index.wxml-->
+<wxs module="util" src="../../utils/extend.wxs"></wxs>
+<view class="container">
+  <view class="group fixedBlock" style="z-index:1">
+    <input placeholder='搜索' value="{{keyword}}" bindconfirm="search"></input>
+  </view>
+  <view class=" flex-flow-row justifyCenter fixedBlock" style="padding:0 10rpx 15rpx 10rpx;z-index:1;margin-top:117rpx;background-color:#252429;width:100%">
+      <view class="tabBtn flex-row {{ isList ? 'activeTab' : '' }}" style="margin : 0 80rpx 0 80rpx;" bindtap='changeIsList' id='list'>
+        <view class="iconGroup">
+          <image mode="aspectFit" src="{{isList ? '../../image/listIcon-active.png' : '../../image/listIcon.png'}}" style="width:100%;height:100%"></image>
+        </view>
+        <view style="font-size:35rpx">
+          列表
+        </view>
+      </view>
+      <label class="tabBtn flex-row {{ !isList ? 'activeTab' : '' }}" style="margin : 0 80rpx 0 80rpx;" bindtap='changeIsList'>
+        <view class="iconGroup">
+          <image mode="aspectFit" src="{{isList ? '../../image/rectangle-active.png' : '../../image/rectangle.png'}}" style="width:100%;height:100%"></image>
+        </view>
+        <view style="font-size:35rpx">
+        矩阵
+        </view>
+      </label>
+  </view>
+  <!-- 列表tab -->
+  <scroll-view class="tabPage" wx:if="{{isList}}" style="margin-top:220rpx;">
+    <!-- 方块 -->
+    <scroll-view class="tabPage flex-row scroll-header" scroll-x>
+        <view class="block" wx:for="{{blockBck}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}">
+            <view class="title">{{item.name}}</view>
+            <view class="subTitle">
+              <view class="flex-row {{ item.flg == '+' ? 'red' : 'green' }}">
+                {{item.flg}} {{util.fmtRatio(item.return_y1,2)}}
+                <view class="{{ item.flg == '+' ? '' : 'rotate180' }}">▲</view>
+              </view>
+              <view>近一年收益</view>
+            </view>
+            <view style="width:100%;height:35%;border-radius:8px;margin-top:10rpx;background-size:100% 100%;background-image:url(data:image/png;base64,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)"></view>
+            <!-- <canvas style="width:100%;height:35%;margin-top:10rpx" disable-scroll="true" id='{{item.value}}' canvas-id='{{item.value}}'>
+              <cover-view></cover-view>
+            </canvas> -->
+        </view>
+    </scroll-view>
+    <!-- 选择地区 -->
+    <view class="addressTabs">
+        <label wx:for="{{address}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}" data-index="{{index}}" class="addTitle {{ addIndex == index ? 'activeTab' : '' }}" bindtap='changeAddIndex' id="{{item.district_code}}">{{item.name}}</label>
+    </view>
+    <!-- 选择类型 -->
+    <view class="classTabs">
+        <label wx:for="{{classer}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}" data-index="{{index}}" data-index="{{index}}" class="classText tabBtn {{ classIndex == index ? 'activeClasser' : '' }}" bindtap='changeClassIndex' id="{{item.value}}">{{item.text}}</label>
+    </view>
+    <!-- 列表 -->
+    <view class="listHead">
+        <view style="width:25%">资产</view>
+        <view style="width:15%">主题</view>
+        <view style="width:20%" class="flex-row centerText">
+          <view class="flex-column rightText">
+            <view class="width100 rightText">最新</view>
+            <view class="width100">价格</view>
+          </view>
+          <view class="flex-column" style="padding:0 0 0 8rpx">
+            <view class="width100 leftText {{ orderAsc.price === true ? 'pale' : 'white' }}" style="margin-bottom:-8rpx;font-size:26rpx" bindtap='orderByList' data-field="price">▲</view>
+            <view class="width100 rotate180 {{ orderAsc.price === false ? 'pale' : 'white' }}" bindtap='orderByList' data-field="price">▲</view>
+          </view>
+        </view>
+        <view style="width:20%" class="flex-row centerText">
+          <view class="flex-column rightText">
+            <view class="width100 rightText">收益率</view>
+            <view class="width100">近一年</view>
+          </view>
+          <view class="flex-column" style="padding:0 0 0 8rpx">
+            <view class="width100 leftText {{ orderAsc.return_y1 === true ? 'pale' : 'white' }}" style="margin-bottom:-8rpx" bindtap='orderByList' data-field="return_y1">▲</view>
+            <view class="width100 rotate180 {{ orderAsc.return_y1 === false ? 'pale' : 'white' }}" bindtap='orderByList' data-field="return_y1">▲</view>
+          </view>
+        </view>
+        <view style="width:20%" class="flex-row centerText">
+          <view class="flex-column rightText">
+            <view class="width100 rightText">波动率</view>
+            <view class="width100">近一年</view>
+          </view>
+          <view class="flex-column" style="padding:0 0 0 8rpx">
+            <view class="width100 leftText {{ orderAsc.return === true ? 'pale' : 'white' }}" style="margin-bottom:-8rpx" bindtap='orderByList' data-field="return">▲</view>
+            <view class="width100 rotate180 {{ orderAsc.return === false ? 'pale' : 'white' }}" bindtap='orderByList' data-field="return">▲</view>
+          </view>
+        </view>
+    </view>
+    <scroll-view style="min-height:350rpx;height:auto;font-size:28rpx">
+      <!-- 列表无数据时展示 -->
+      <view class="flex-row width100 centerText pale" style="margin-top:120rpx;height:100rpx" wx:if="{{ !listData.length }}">
+        {{listMsg}}
+      </view>
+
+      <!-- 表格本体 -->
+      <view wx:for="{{util.splitArr(listData,0,page * 10)}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}" >
+        <navigator url="../main/detail/detail?benchmarkId={{item.asset_id}}"  class="rows" style="padding:6rpx">
+          <view style="width:25%">{{util.subStrByLen(item.name,14)}}</view>
+          <view style="width:15%">{{"大盘"}}</view>
+          <view style="width:20%">{{util.fmtFixed(item.price,2)}}</view>
+          <view style="width:20%" class="{{item.y1_return_a > 0 ? 'red' : !item.y1_return_a ? ' ' : 'green'}}">{{util.fmtRatio(item.y1_return_a,2)}}</view>
+          <view style="width:20%">{{util.fmtRatio(item.y1_stdev,2)}}</view>
+        </navigator>
+      </view>
+    </scroll-view>
+  </scroll-view>
+  <!-- 矩阵tab -->
+  <scroll-view class="tabPage" wx:else style="margin-top:220rpx;">
+    <view class="matrixRange flex-row justifyBetween pale font32">
+      <view wx:for="{{matrixRange}}" wx:for-item="year" wx:for-index="index" wx:key="{{index}}">{{year}}</view>
+    </view>
+    <view class="flex-column justifyCenter" style="margin:0 0 20rpx 0">
+      <view class="matrixRow flex-row" wx:for="{{blockBck}}" wx:for-index="index" wx:for-item="item" wx:key="{{index}}" data-index="{{index}}">
+        <view class="matrixItem width25 centerText white" wx:for="{{item.series}}" wx:for-index="itemIndex" wx:for-item="rowItem" wx:key="{{itemIndex}}" data-index="{{itemIndex}}" style="background:linear-gradient(to bottom right,{{util.matrixColor(itemIndex)}})">
+          <view class="tagName">{{item.name}}</view>
+          <view class="matrixBtn justifyCenter font26" style="background:linear-gradient(to bottom right,{{util.matrixBtnColor(itemIndex)}})">
+            <label>{{util.fmtRatio(rowItem/100,2)}}</label>
+            <label>▲</label>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
